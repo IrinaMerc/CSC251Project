@@ -103,14 +103,14 @@ public class Policy {
 
     }
 
-    public double priceOfInsurancePolicy(int age, String smokingStatus, double height, double weight) {
+    public double priceOfInsurancePolicy() {
         double price = 600;
-        if (age > 50) {
+        if (policyholderAge > 50) {
             price += 75;
         } else {
             price += 100;
         }
-        if (smokingStatus.equalsIgnoreCase("smoker")) {
+        if (policyholderSmokingStatus.equalsIgnoreCase("smoker")) {
             price += 100;
         }
         double bmi = bmiOfPolicyholder();
@@ -118,5 +118,4 @@ public class Policy {
             price += (bmi - 35) * 20;
         }
         return price;
-    }
-}
+    }}
