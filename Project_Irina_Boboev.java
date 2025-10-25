@@ -1,38 +1,39 @@
 import java.util.Scanner;
+import java.io.File;
+import java.io.FileNotFoundException;
+
 public class Project_Irina_Boboev{
 
-public static void main(String[] args) {
-        Scanner input = new Scanner(System.in);
+   public static void main(String[] args) throws FileNotFoundException {
+        //  File file = new File("PolicyInformation.txt");
+        Scanner input = new Scanner(new File("PolicyInformation.txt"));
 
-            System.out.print("Please enter the Policy Number: ");
-            Integer policyNumber = input.nextInt();
+        int smokers = 0;
+        int nonSmokers = 0;
+
+        while (input.hasNext()) {
+            int policyNumber = input.nextInt();
             input.nextLine();
-
-            System.out.print("Please enter the Provider Name: ");
             String providerName = input.nextLine();
-
-            System.out.print("Please enter the Policyholder’s First Name: ");
             String firstName = input.nextLine();
-
-            System.out.print("Please enter the Policyholder’s Last Name: ");
             String lastName = input.nextLine();
-
-            System.out.print("Please enter the Policyholder’s Age: ");
             int age = input.nextInt();
             input.nextLine();
-
-            System.out.print("Please enter the Policyholder’s Smoking Status (smoker/non-smoker): ");
             String smokingStatus = input.nextLine();
-
-            System.out.print("Please enter the Policyholder’s Height (in inches): ");
             double height = input.nextDouble();
-
-            System.out.print("Please enter the Policyholder’s Weight (in pounds): ");
+            input.nextLine();
             double weight = input.nextDouble();
+            System.out.println();
 
             Policy policy = new Policy(policyNumber, providerName, firstName, lastName, age, height, weight, smokingStatus);
 
-            System.out.println("Policy Number: " + policy.getPolicyNumber());
+            if ("smoker".equalsIgnoreCase(policy.getPolicyholderSmokingStatus())) {
+                smokers++;
+            } else {
+                nonSmokers++;
+            }
+
+            System.out.println("Policy Number: " + policyNumber);
             System.out.println("Provider Name: " + policy.getPolicyName());
             System.out.println("Policyholder’s First Name: " + policy.getPolicyholderFirstName());
             System.out.println("Policyholder’s Last Name: " + policy.getPolicyholderLastName());
@@ -42,5 +43,9 @@ public static void main(String[] args) {
             System.out.println("Policyholder’s Weight: " + policy.getPolicyholderWeight() + " pounds");
             System.out.printf("Policyholder’s BMI: %.2f\n", policy.bmiOfPolicyholder());
             System.out.printf("Policy Price: $%.2f\n", policy.priceOfInsurancePolicy());
-      }
-    }
+        }
+        System.out.println("The number of policies with a smoker is: " + smokers);
+        System.out.println("The number of policies with a non-smoker is: " + nonSmokers);
+        input.close();
+    }    
+}
